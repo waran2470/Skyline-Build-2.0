@@ -1,14 +1,15 @@
 {
   "name": "skyline-build-2-0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node server.js",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "express": "^4.21.1",
     "three": "^0.168.0"
   },
   "devDependencies": {
