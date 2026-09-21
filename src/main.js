@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+import './style.css';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x8ac8e8);
@@ -33,7 +34,6 @@ const blocks = [];
 const colliders = [];
 const raycaster = new THREE.Raycaster();
 const center = new THREE.Vector2(0, 0);
-const pointer = new THREE.Vector2();
 const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 let canJump = false;
@@ -56,7 +56,6 @@ function addGround() {
   for (let x = -5; x <= 5; x++) for (let z = -5; z <= 5; z++) {
     if ((Math.abs(x) + Math.abs(z)) % 4 === 0) addBlock('floor', new THREE.Vector3(x, .5, z));
   }
-  // A small starter platform
   for (let x = -2; x <= 2; x++) for (let z = -2; z <= 2; z++) addBlock('floor', new THREE.Vector3(x, .5, z));
 }
 addGround();
@@ -112,6 +111,43 @@ function updateStatus() {
   document.getElementById('status').textContent = `${selected.toUpperCase()} / ${materials[selected].label}　[1:壁  2:床  3:ランプ]`;
 }
 updateStatus();
+
+const assistantForm = document.getElementById('assistant-form');
+const assistantInput = document.getElementById('assistant-input');
+const assistantMessages = document.getElementById('assistant-messages');
+const assistantSubmit = document.getElementById('assistant-submit');
+const assistantError = document.getElementById('assistant-error');
+function addAssistantMessage(text, role) {
+  const message = document.createElement('div');
+  message.className = `assistant-message ${role}`;
+  message.textContent = text;
+  assistantMessages.appendChild(message);
+  assistantMessages.scrollTop = assistantMessages.scrollHeight;
+}
+assistantForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  const message = assistantInput.value.trim();
+  if (!message || assistantSubmit.disabled) return;
+  addAssistantMessage(message, 'user');
+  assistantInput.value = '';
+  assistantError.textContent = '';
+  assistantSubmit.disabled = true;
+  assistantSubmit.textContent = '考え中…';
+  try {
+    const response = await fetch('/api/assistant', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'アシスタントに接続できませんでした。');
+    addAssistantMessage(data.answer, 'assistant');
+  } catch (error) {
+    assistantError.textContent = error.message;
+  } finally {
+    assistantSubmit.disabled = false;
+    assistantSubmit.innerHTML = '送信 <span>➤</span>';
+  }
+});
 
 const clock = new THREE.Clock();
 function animate() {
