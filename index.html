@@ -13,6 +13,16 @@
         <div id="crosshair">+</div>
         <div id="status">ブロックを選択してください</div>
       </div>
+      <aside id="assistant-panel" aria-label="GPT建築アシスタント">
+        <div class="assistant-heading"><span>🏗️</span><div><strong>GPT建築アシスタント</strong><small>SKYLINE AI BUILDER</small></div></div>
+        <div id="assistant-messages" class="assistant-messages"><div class="assistant-message assistant">こんにちは！どんな建築を作りたいですか？</div></div>
+        <form id="assistant-form">
+          <label class="sr-only" for="assistant-input">GPTへの質問</label>
+          <textarea id="assistant-input" rows="2" maxlength="2000" placeholder="ここにどんな建築を作ればいい？"></textarea>
+          <button id="assistant-submit" type="submit">送信 <span>➤</span></button>
+        </form>
+        <div id="assistant-error" class="assistant-error" role="alert"></div>
+      </aside>
       <div id="start-screen">
         <h1>SKYLINE BUILD <em>2.0</em></h1>
         <p>3D BUILDING SANDBOX</p>
