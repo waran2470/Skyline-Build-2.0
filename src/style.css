@@ -1,0 +1,17 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; font-family: Inter, system-ui, sans-serif; color: #fff; }
+#app, canvas { width: 100%; height: 100%; display: block; }
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 2; text-shadow: 0 2px 4px #1238; }
+.brand { position: absolute; top: 24px; left: 28px; font-size: 22px; font-weight: 900; letter-spacing: .18em; }
+.brand span { color: #a5ffdc; font-weight: 500; font-size: 12px; }
+.help { position: absolute; top: 58px; left: 29px; opacity: .85; font-size: 12px; }
+#crosshair { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%); color: #fff; font-size: 25px; font-weight: 200; }
+#status { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); padding: 10px 18px; border: 1px solid #ffffff55; border-radius: 999px; background: #10233c99; font-size: 13px; backdrop-filter: blur(6px); }
+#start-screen { position: fixed; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; background: linear-gradient(135deg, #102d4acc, #15204dcc); backdrop-filter: blur(7px); transition: opacity .25s; }
+#start-screen.hidden { opacity: 0; pointer-events: none; }
+h1 { margin: 0; font-size: clamp(38px, 7vw, 78px); letter-spacing: .08em; font-weight: 900; }
+h1 em { color: #a5ffdc; font-style: normal; }
+#start-screen p { letter-spacing: .45em; opacity: .7; margin: 14px 0 36px; font-size: 12px; }
+button { cursor: pointer; border: 0; border-radius: 5px; padding: 14px 30px; color: #123047; background: #a5ffdc; font-weight: 800; letter-spacing: .08em; box-shadow: 0 8px 30px #0004; }
+button:hover { background: #fff; transform: translateY(-1px); }
+@media (max-width: 700px) { .help { max-width: 85vw; line-height: 1.6; } .brand { top: 16px; left: 18px; } }
